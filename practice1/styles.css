@@ -57,12 +57,14 @@ body {
   background-color: rgba(224, 224, 224, 1);
 }
 
-.calculator > button.operator {
+.calculator > button.operator,
+.calculator > button.equals {
   color: white;
   background-color: rgba(247, 149, 46, 1);
 }
 
-.calculator > button.operator:hover {
+.calculator > button.operator:hover,
+.calculator > button.equals:hover {
   background-color: rgba(247, 149, 46, 0.7);
 }
 
