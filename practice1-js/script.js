@@ -1,32 +1,47 @@
 /*
- * @Author: 超级学生
- * @Date: 2019-11-15 23:19:32
- * @Last Modified time: 2019-11-15 23:19:32
+ * @Author: 小丑黑客
+ * @Date: 2019-11-16 02:38:39
+ * @Last Modified by: ClownHacker
+ * @Last Modified time: 2019-11-16 03:04:20
  */
 
-var currentOperand = 0; // 当前操作数, 默认0
-var previousOperand = 0; // 上一个操作数，默认0
+var currentOperand = ''; // 当前操作数, 默认空字符串
+var previousOperand = ''; // 上一个操作数，默认空字符串
 var operation; // 操作符号(+,-,x,÷)
 
-// 重置
+/**
+ * 清空重置
+ */
 function clear() {
-  currentOperand = 0;
-  previousOperand = 0;
+  currentOperand = '';
+  previousOperand = '';
   operation = undefined;
 }
 
-// 删除数字
+/**
+ * 删除数字
+ */
 function deleteNumber() {
   currentOperand = currentOperand.toString().slice(0, -1);
 }
 
-// 追加数字
+/**
+ * 追加数字
+ *
+ * @param {int} number 操作数
+ * @returns
+ */
 function appendNumber(number) {
   if (number === '.' && currentOperand.includes('.')) return;
   currentOperand = currentOperand.toString() + number.toString();
 }
 
-// 选择操作符号
+/**
+ * 选择操作符号
+ *
+ * @param {string} oper 操作符号
+ * @returns
+ */
 function chooseOperation(oper) {
   if (currentOperand === '') return;
   if (previousOperand !== '') {
@@ -37,7 +52,11 @@ function chooseOperation(oper) {
   currentOperand = '';
 }
 
-// 计算
+/**
+ * 计算
+ *
+ * @returns
+ */
 function compute() {
   let computation;
   const prev = parseFloat(previousOperand);
@@ -65,10 +84,10 @@ function compute() {
 }
 
 /**
- *  获取要显示的数字
+ *  根据传入的数字在特定语言环境下的表示字符串，比如传入39999，然后39,999
  *
- * @param {*} number
- * @returns
+ * @param {int} number 数字
+ * @returns 返回数字字符串
  */
 function getDisplayNumber(number) {
   const stringNumber = number.toString();
@@ -78,6 +97,7 @@ function getDisplayNumber(number) {
   if (isNaN(integerDigits)) {
     integerDisplay = '';
   } else {
+    // 文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
     integerDisplay = integerDigits.toLocaleString('en', {
       maximumFractionDigits: 0
     });
@@ -91,32 +111,37 @@ function getDisplayNumber(number) {
 
 
 /**
- * 更新显示
- *
+ * 更新计算器
  */
 function updateDisplay() {
   currentOperandTextElement.innerText = getDisplayNumber(currentOperand);
   if (operation != null) {
-    previousOperandTextElement.innerText = `${getDisplayNumber(
-      previousOperand
-    )} ${operation}`;
+    previousOperandTextElement.innerText = `${getDisplayNumber(previousOperand)} ${operation}`;
   } else {
     previousOperandTextElement.innerText = '';
   }
 }
 
+// 获取数字（0，1，2，3....9）元素
 const numberButtons = document.querySelectorAll('[data-number]');
+// 获取操作符（+,-,x,÷）元素
 const operationButtons = document.querySelectorAll('.operator');
+// 获取等号（=）元素
 const equalsButton = document.querySelector('.equals');
+// 获取删除操作符（DEL）元素
 const deleteButton = document.querySelector('[data-delete]');
+// 获取清除（AC）元素
 const allClearButton = document.querySelector('[data-all-clear]');
+// 获取上一个操作数元素
 const previousOperandTextElement = document.querySelector(
   '[data-previous-operand]'
 );
+// 获取当前操作数元素
 const currentOperandTextElement = document.querySelector(
   '[data-current-operand]'
 );
 
+// 遍历所有数字按钮添加点击事件
 numberButtons.forEach(button => {
   button.addEventListener('click', () => {
     appendNumber(button.innerText);
@@ -124,6 +149,7 @@ numberButtons.forEach(button => {
   });
 });
 
+// 遍历所有操作符按钮添加点击事件
 operationButtons.forEach(button => {
   button.addEventListener('click', () => {
     chooseOperation(button.innerText);
@@ -131,16 +157,19 @@ operationButtons.forEach(button => {
   });
 });
 
+// 等号按钮添加点击事件
 equalsButton.addEventListener('click', button => {
   compute();
   updateDisplay();
 });
 
+// 清空按钮添加点击事件
 allClearButton.addEventListener('click', button => {
   clear();
   updateDisplay();
 });
 
+// 删除按钮添加点击事件
 deleteButton.addEventListener('click', button => {
   deleteNumber();
   updateDisplay();
