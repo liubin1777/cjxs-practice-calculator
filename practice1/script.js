@@ -1,22 +1,32 @@
-var currentOperand; // 当前操作数
-var previousOperand; // 上一个操作数
+/*
+ * @Author: 超级学生
+ * @Date: 2019-11-15 23:19:32
+ * @Last Modified time: 2019-11-15 23:19:32
+ */
+
+var currentOperand = 0; // 当前操作数, 默认0
+var previousOperand = 0; // 上一个操作数，默认0
 var operation; // 操作符号(+,-,x,÷)
 
+// 重置
 function clear() {
-  currentOperand = '';
-  previousOperand = '';
+  currentOperand = 0;
+  previousOperand = 0;
   operation = undefined;
 }
 
+// 删除数字
 function deleteNumber() {
   currentOperand = currentOperand.toString().slice(0, -1);
 }
 
+// 追加数字
 function appendNumber(number) {
   if (number === '.' && currentOperand.includes('.')) return;
   currentOperand = currentOperand.toString() + number.toString();
 }
 
+// 选择操作符号
 function chooseOperation(oper) {
   if (currentOperand === '') return;
   if (previousOperand !== '') {
@@ -27,6 +37,7 @@ function chooseOperation(oper) {
   currentOperand = '';
 }
 
+// 计算
 function compute() {
   let computation;
   const prev = parseFloat(previousOperand);
@@ -53,6 +64,12 @@ function compute() {
   previousOperand = '';
 }
 
+/**
+ *  获取要显示的数字
+ *
+ * @param {*} number
+ * @returns
+ */
 function getDisplayNumber(number) {
   const stringNumber = number.toString();
   const integerDigits = parseFloat(stringNumber.split('.')[0]);
@@ -72,6 +89,11 @@ function getDisplayNumber(number) {
   }
 }
 
+
+/**
+ * 更新显示
+ *
+ */
 function updateDisplay() {
   currentOperandTextElement.innerText = getDisplayNumber(currentOperand);
   if (operation != null) {
