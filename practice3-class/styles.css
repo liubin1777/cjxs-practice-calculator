@@ -2,44 +2,37 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  font-family: Gotham Rounded, sans-serif;
-  font-weight: normal;
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-weight: lighter;
 }
 
 body {
+  width: 100vw;
+  height: 100vh;
   padding: 0;
   margin: 0;
   background: linear-gradient(to right, #ff0037, #00aaff);
 }
 
-.calculator-grid {
+.calculator {
   display: grid;
   justify-content: center;
   align-content: center;
-  min-height: 100vh;
+  height: 650px;
   grid-template-columns: repeat(4, 100px);
-  grid-template-rows: minmax(120px, auto) repeat(5, 100px);
-}
-
-.calculator-grid > button {
-  cursor: pointer;
-  font-size: 2rem;
-  border: 1px solid white;
-  outline: none;
-  background-color: rgba(255, 255, 255, 0.75);
-}
-
-.calculator-grid > button:hover {
-  background-color: rgba(255, 255, 255, 0.9);
-}
-
-.span-two {
-  grid-column: span 2;
+  grid-template-rows: 1.5fr 1fr 1fr 1fr 1fr 1fr;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: yellow;
+  width: 400px;
+  font-size: 0; /* 消除子元素button之间的间距 */
 }
 
 .output {
   grid-column: 1 / -1;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(41, 41, 41, 1);
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
@@ -49,12 +42,39 @@ body {
   word-break: break-all;
 }
 
-.output .previous-operand {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 1.5rem;
-}
-
 .output .current-operand {
   color: white;
-  font-size: 2.5rem;
+  font-size: 4rem;
+}
+
+.output .previous-operand {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 2rem;
+}
+
+.calculator > button {
+  cursor: pointer;
+  font-size: 2rem;
+  border: 1px solid rgba(142, 142, 142, 1);
+  outline: none;
+  background-color: rgba(224, 224, 224, 1);
+}
+
+.calculator > button.operator,
+.calculator > button.equals {
+  color: white;
+  background-color: rgba(247, 149, 46, 1);
+}
+
+.calculator > button.operator:hover,
+.calculator > button.equals:hover {
+  background-color: rgba(247, 149, 46, 0.7);
+}
+
+.calculator > button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.calculator > button.span-two {
+  grid-column: span 2;
 }

@@ -109,14 +109,15 @@ function getDisplayNumber(number) {
   }
 }
 
-
 /**
  * 更新计算器
  */
 function updateDisplay() {
   currentOperandTextElement.innerText = getDisplayNumber(currentOperand);
   if (operation != null) {
-    previousOperandTextElement.innerText = `${getDisplayNumber(previousOperand)} ${operation}`;
+    previousOperandTextElement.innerText = `${getDisplayNumber(
+      previousOperand
+    )} ${operation}`;
   } else {
     previousOperandTextElement.innerText = '';
   }
