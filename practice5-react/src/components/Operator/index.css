@@ -1,0 +1,8 @@
+.operator {
+  color: white;
+  background-color: rgba(247, 149, 46, 1);
+}
+
+.operator:hover {
+  background-color: rgba(247, 149, 46, 0.7);
+}

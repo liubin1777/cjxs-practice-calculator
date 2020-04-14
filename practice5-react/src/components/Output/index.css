@@ -1,0 +1,22 @@
+.output {
+  width: 100%;
+  height: 150px;
+  background-color: rgba(41, 41, 41, 1);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 10px;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.output_cur {
+  color: white;
+  font-size: 4rem;
+}
+
+.output_pre {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 2rem;
+}
